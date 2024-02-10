@@ -1,0 +1,8 @@
+db,filename,spec
+scan,scandata_new.csv,
+light,light_2024-02-06_07h58m51.csv,"Id,Location,Name [Coordinate systems]"
+coor,coordinate_system_2024-02-06_07h29m31.csv,coor_id/coor_name/create_time/scene_name
+coor_city,coor_city.csv,
+arobjs,ar_object_2024-02-06_07h26m12.csv,arj_id/obj_name/scene_name
+user,user_2023-09-25_15h15m15.csv,user/Email/user_create_time
+click,obj_click_log.csv,
