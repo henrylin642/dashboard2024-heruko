@@ -112,7 +112,11 @@ def project_search():
     selected_scene_list = df_coor_filtered['scene_name'].tolist()
 
     df_click_lig_objs_sorted = df_click_lig_objs.sort_values(by='time').reset_index(drop=True) 
-    filtered_df_click_lig_objs = df_click_lig_objs_sorted[(df_click_lig_objs_sorted['time'].dt.date >= start_date.date()) & (df_click_lig_objs_sorted['time'].dt.date <= end_date.date())]
+
+    start_timestamp = pd.Timestamp(start_date)
+    end_timestamp = pd.Timestamp(end_date)
+
+    filtered_df_click_lig_objs = df_click_lig_objs_sorted[(df_click_lig_objs_sorted['time'].dt.date >= start_timestamp.date()) & (df_click_lig_objs_sorted['time'].dt.date <= end_timestamp.date())]
     
     # 使用groupby對'obj_scene'進行分組，然後計算每組的數量
     obj_click_count = filtered_df_click_lig_objs.groupby('obj_scene')['obj_id_revised'].count().reset_index(name='counts')
