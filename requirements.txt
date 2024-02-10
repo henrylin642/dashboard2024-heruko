@@ -60,8 +60,6 @@ funcsigs==1.0.2
 ghp-import==2.1.0
 gitdb==4.0.10
 GitPython==3.1.31
-grpcio==1.51.1
-grpcio-status==1.51.1
 gTTS==2.3.1
 h11==0.14.0
 httpcore==0.17.2
