@@ -516,12 +516,13 @@ def parameters():
     # 在最初創建一個占位符
     data_editor_placeholder = st.empty()
     df_coor_city = df_coor_city.sort_values(by='coor_id', ascending=False)
-    edited_df = data_editor_placeholder.data_editor(df_coor_city)
-    if st.button('更新'):
-        edited_df.to_csv("data/coor_city.csv", encoding="utf-8-sig", index=False)
-        st.write('更新成功!')
-        df_coor_city = edited_df
-        data_editor_placeholder.data_editor(df_coor_city)
+    st.dataframe(df_coor_city)
+    #edited_df = data_editor_placeholder.data_editor(df_coor_city)
+    #if st.button('更新'):
+    #    edited_df.to_csv("data/coor_city.csv", encoding="utf-8-sig", index=False)
+    #    st.write('更新成功!')
+    #    df_coor_city = edited_df
+    #    data_editor_placeholder.data_editor(df_coor_city)
 
 #%% 頁面呈現 ============================================================================= #
 def main():
