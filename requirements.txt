@@ -60,13 +60,6 @@ funcsigs==1.0.2
 ghp-import==2.1.0
 gitdb==4.0.10
 GitPython==3.1.31
-google-analytics-data==0.15.0
-google-api-core==2.11.0
-google-api-python-client==2.70.0
-google-auth==2.15.0
-google-auth-httplib2==0.1.0
-google-auth-oauthlib==0.8.0
-googleapis-common-protos==1.57.0
 grpcio==1.51.1
 grpcio-status==1.51.1
 gTTS==2.3.1
