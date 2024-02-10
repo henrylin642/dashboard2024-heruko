@@ -453,6 +453,52 @@ def project_search():
         )   
 
 def parameters():
+    from github import Github
+    def upload_file_to_github(local_file_path, github_repository, github_username, github_password):
+        # Initialize GitHub instance
+        g = Github(github_username, github_password)
+    
+        # Get repository
+        repo = g.get_user().get_repo(github_repository)
+    
+        # Read file contents
+        with open(local_file_path, "r") as file:
+            content = file.read()
+    
+        # Define file path in GitHub repository
+        github_file_path = os.path.basename(local_file_path)
+    
+        # Create or update file
+        try:
+            # If file already exists, update it
+            contents = repo.get_contents(github_file_path)
+            repo.update_file(github_file_path, "Upload file", content, contents.sha)
+            print("File updated successfully.")
+        except Exception as e:
+            # If file does not exist, create it
+            print("Error:", e)
+            repo.create_file(github_file_path, "Upload file", content)
+            print("File created successfully.")
+
+    def retrieve_file_from_github(github_file_path, local_directory, github_repository, github_username, github_password):
+        # Initialize GitHub instance
+        g = Github(github_username, github_password)
+    
+        # Get repository
+        repo = g.get_user().get_repo(github_repository)
+    
+        # Get file contents from GitHub
+        contents = repo.get_contents(github_file_path)
+        content = contents.decoded_content.decode('utf-8')
+    
+        # Write file contents to local directory
+        local_file_path = os.path.join(local_directory, os.path.basename(github_file_path))
+        with open(local_file_path, "w") as file:
+            file.write(content)
+    
+        print(f"File retrieved from GitHub and saved to {local_file_path}")
+
+    
     df_file = pd.read_csv("data/df_file.csv",encoding="utf-8-sig")  # 檔案資訊
     # 建立一個下拉式選單供使用者選擇分類
     
@@ -467,7 +513,7 @@ def parameters():
     df_click = pd.read_csv("data/obj_click_log.csv", encoding='utf-8-sig')
     st.dataframe(df_scan)
     st.dataframe(df_click)
-    if category=='scan'and uploaded_file:
+    if category=='scan'and uploaded_file:        
         original_df = pd.read_csv("data/scandata_new.csv", encoding='utf-8-sig')
         uploaded_df = pd.read_csv(uploaded_file, encoding='utf-8-sig')
         uploaded_df['Scan time'] = pd.to_datetime(uploaded_df['Scan time'], format='%Y年%m月%d日 %H:%M', errors='coerce')
