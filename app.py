@@ -463,7 +463,10 @@ def parameters():
     filepath = os.path.join("data", selected_filename)
     modified_date = pd.to_datetime(os.path.getmtime(filepath), unit='s')
     uploaded_file = st.file_uploader(f"上傳 {category} 檔案:檔案位置{filepath} 最新修改日期：{modified_date}", type=['csv'])
-
+    df_scan = pd.read_csv("data/scandata_new.csv", encoding='utf-8-sig')
+    df_click = pd.read_csv("data/obj_click_log.csv", encoding='utf-8-sig')
+    st.dataframe(df_scan)
+    st.dataframe(df_click)
     if category=='scan'and uploaded_file:
         original_df = pd.read_csv("data/scandata_new.csv", encoding='utf-8-sig')
         uploaded_df = pd.read_csv(uploaded_file, encoding='utf-8-sig')
