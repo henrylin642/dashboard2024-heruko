@@ -523,6 +523,32 @@ def parameters():
         merged_df.sort_values('Timestamp')
         merged_df.drop_duplicates(inplace=True)
         merged_df.to_csv("data/scandata_new.csv", encoding="utf-8-sig", index=False)
+        # 转换为 CSV 文件
+        csv_data = merged_df.to_csv(encoding="utf-8-sig", index=False)
+        
+        # GitHub 凭证
+        github_username = "henrylin642"
+        github_password = "Hy588976"
+        repository_name = "dashboard2024-heruko"
+        github_file_path = "data/output.csv"  # 在 GitHub 仓库中的路径
+        
+        # 初始化 GitHub 实例
+        g = Github(github_username, github_password)
+        
+        # 获取仓库
+        repo = g.get_user().get_repo(repository_name)
+        
+        # 创建或更新文件
+        try:
+            # 如果文件已存在，则更新它
+            contents = repo.get_contents(github_file_path)
+            repo.update_file(github_file_path, "Upload CSV file", csv_data, contents.sha)
+            print("File updated successfully.")
+        except Exception as e:
+            # 如果文件不存在，则创建它
+            print("Error:", e)
+            repo.create_file(github_file_path, "Upload CSV file", csv_data)
+            print("File created successfully.")
     elif category=='click'and uploaded_file:
         original_df = pd.read_csv("data/obj_click_log.csv", encoding='utf-8-sig')
         original_df['time'] = pd.to_datetime(original_df['time'], format='%Y年%m月%d日 %H:%M', errors='coerce')
