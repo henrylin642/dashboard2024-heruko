@@ -72,7 +72,7 @@ def project_search():
     df_scan_coor_scene_city,df_coor_city,df_coor,df_arobjs = get_scan_data(df_light,df_coor,df_arobjs)
     
     df_click_lig = pd.read_csv("data/obj_click_log.csv",encoding="utf-8-sig") 
-    df_click_lig['time'] = pd.to_datetime(df_click_lig['time'])
+    df_click_lig['time'] = pd.to_datetime(df_click_lig['time'], format='%Y年%m月%d日 %H:%M', errors='coerce')
     lastest_click_date = df_click_lig['time'].max()
     df_click_lig['formatted_time'] = df_click_lig['time'].dt.strftime('%Y-%m-%d %H:%M')
     df_click_lig['formatted_time'] = pd.to_datetime(df_click_lig['formatted_time'])
